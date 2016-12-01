@@ -24,7 +24,24 @@
  */
 
 #include <linux/pci.h>
+#include <irq.h>
 #include <boot_param.h>
+#include <workarounds.h>
+#include <loongson-pch.h>
+
+static int pcie_get_portnum(void *sysdata)
+{
+	u64 memstart = ((struct pci_controller *)(sysdata))->mem_resource->start;
+	if (memstart < LS2H_PCIE_MEM1_BASE(0))
+		return (memstart - LS2H_PCIE_MEM0_BASE(0)) >> 25;
+	else
+		return (memstart - LS2H_PCIE_MEM1_BASE(0)) >> 28;
+}
+
+int ls2h_pcibios_map_irq(const struct pci_dev *dev, u8 slot, u8 pin)
+{
+	return LS2H_PCH_PCIE_PORT0_IRQ + pcie_get_portnum(dev->sysdata);;
+}
 
 static void print_fixup_info(const struct pci_dev *pdev)
 {
@@ -32,7 +49,7 @@ static void print_fixup_info(const struct pci_dev *pdev)
 			pdev->vendor, pdev->device, pdev->irq);
 }
 
-int pcibios_map_irq(const struct pci_dev *dev, u8 slot, u8 pin)
+int rs780_pcibios_map_irq(const struct pci_dev *dev, u8 slot, u8 pin)
 {
 	print_fixup_info(dev);
 	return dev->irq;
@@ -64,8 +81,17 @@ static void pci_fixup_radeon(struct pci_dev *pdev)
 DECLARE_PCI_FIXUP_CLASS_FINAL(PCI_VENDOR_ID_ATI, PCI_ANY_ID,
 				PCI_CLASS_DISPLAY_VGA, 8, pci_fixup_radeon);
 
+int pcibios_map_irq(const struct pci_dev *dev, u8 slot, u8 pin)
+{
+	return loongson_pch->pcibios_map_irq(dev, slot, pin);
+}
+
 /* Do platform specific device initialization at pci_enable_device() time */
 int pcibios_plat_dev_init(struct pci_dev *dev)
 {
+	dev->dev.archdata.dma_attrs = 0;
+	if (loongson_sysconf.workarounds & WORKAROUND_PCIE_DMA)
+		dev->dev.archdata.dma_attrs = DMA_ATTR_FORCE_SWIOTLB;
+
 	return 0;
 }

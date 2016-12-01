@@ -6,6 +6,7 @@
 #include <linux/ioport.h>
 #include <linux/export.h>
 #include <linux/interrupt.h>
+#include <loongson-pch.h>
 
 #define SBX00_ACPI_IO_BASE 0x800
 #define SBX00_ACPI_IO_SIZE 0x100
@@ -238,11 +239,17 @@ void acpi_registers_setup(void)
 	outw(value, ACPI_PM_EVT_BLK + 2);
 }
 
-int __init sbx00_acpi_init(void)
+int __init loongson_acpi_init(void)
 {
-	register_acpi_resource();
-	acpi_registers_setup();
-	acpi_hw_clear_status();
+	switch (loongson_pch->type) {
+	case LS2H:
+		break;
+	case RS780E:
+		register_acpi_resource();
+		acpi_registers_setup();
+		acpi_hw_clear_status();
+		break;
+	}
 
 	return 0;
 }

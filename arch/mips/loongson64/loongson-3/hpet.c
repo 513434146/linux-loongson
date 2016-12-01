@@ -8,6 +8,7 @@
 
 #include <asm/hpet.h>
 #include <asm/time.h>
+#include <loongson-pch.h>
 
 #define SMBUS_CFG_BASE		(loongson_sysconf.ht_control_base + 0x0300a000)
 #define SMBUS_PCI_REG40		0x40
