@@ -121,6 +121,7 @@ static const struct dma_map_ops loongson_dma_map_ops = {
 	.mapping_error = swiotlb_dma_mapping_error,
 	.dma_supported = loongson_dma_supported,
 	.cache_sync = mips_dma_cache_sync,
+	.get_cache_alignment = mips_dma_get_cache_alignment
 };
 
 void __init plat_swiotlb_setup(void)
