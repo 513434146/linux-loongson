@@ -383,7 +383,7 @@ static int mips_dma_supported(struct device *dev, u64 mask)
 	return plat_dma_supported(dev, mask);
 }
 
-static void mips_dma_cache_sync(struct device *dev, void *vaddr, size_t size,
+void mips_dma_cache_sync(struct device *dev, void *vaddr, size_t size,
 			 enum dma_data_direction direction)
 {
 	BUG_ON(direction == DMA_NONE);

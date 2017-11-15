@@ -37,4 +37,7 @@ static inline void arch_setup_dma_ops(struct device *dev, u64 dma_base,
 #endif
 }
 
+void mips_dma_cache_sync(struct device *dev, void *vaddr,
+		size_t size, enum dma_data_direction direction);
+
 #endif /* _ASM_DMA_MAPPING_H */
