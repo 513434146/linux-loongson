@@ -1,8 +1,6 @@
+/* SPDX-License-Identifier: GPL-2.0 */
+
 /*
- * This file is subject to the terms and conditions of the GNU General Public
- * License.  See the file "COPYING" in the main directory of this archive
- * for more details.
- *
  * Copyright (C) 2005 Embedded Alley Solutions, Inc
  * Copyright (C) 2005 Ralf Baechle (ralf@linux-mips.org)
  * Copyright (C) 2009 Jiajie Chen (chenjiajie@cse.buaa.edu.cn)
