@@ -108,15 +108,15 @@ void __init prom_setup_cmdline(void)
 	}
 	*(cp++) = ' ';
 
-	i = strlen(arcs_cmdline);
+	i = strlen(mips_cmdline);
 	if (i > 0) {
 		*(cp++) = ' ';
-		strcpy(cp, arcs_cmdline);
-		cp += strlen(arcs_cmdline);
+		strcpy(cp, mips_cmdline);
+		cp += strlen(mips_cmdline);
 	}
 	cmd_line[COMMAND_LINE_SIZE - 1] = '\0';
 
-	strcpy(arcs_cmdline, cmd_line);
+	strcpy(mips_cmdline, cmd_line);
 }
 
 void __init prom_init(void)

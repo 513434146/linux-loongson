@@ -120,7 +120,7 @@ extern void (*free_init_pages_eva)(void *begin, void *end);
 /*
  * Initial kernel command line, usually setup by prom_init()
  */
-extern char arcs_cmdline[COMMAND_LINE_SIZE];
+extern char mips_cmdline[COMMAND_LINE_SIZE];
 
 /*
  * Registers a0, a1, a3 and a4 as passed to the kernel entry by firmware

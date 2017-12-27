@@ -30,7 +30,7 @@
 
 #include <cs5536/cs5536.h>
 
-#include <asm/setup.h>		/* for arcs_cmdline */
+#include <asm/setup.h>		/* for mips_cmdline */
 #include <ec_kb3310b.h>
 
 /* common function */
@@ -40,7 +40,7 @@ static int ec_version_before(char *version)
 {
 	char *p, ec_ver[EC_VER_LEN];
 
-	p = strstr(arcs_cmdline, "EC_VER=");
+	p = strstr(mips_cmdline, "EC_VER=");
 	if (!p)
 		memset(ec_ver, 0, EC_VER_LEN);
 	else {

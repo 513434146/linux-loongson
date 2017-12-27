@@ -55,9 +55,9 @@ static void  __init ar7_init_cmdline(int argc, char *argv[])
 	int i;
 
 	for (i = 1; i < argc; i++) {
-		strlcat(arcs_cmdline, argv[i], COMMAND_LINE_SIZE);
+		strlcat(mips_cmdline, argv[i], COMMAND_LINE_SIZE);
 		if (i < (argc - 1))
-			strlcat(arcs_cmdline, " ", COMMAND_LINE_SIZE);
+			strlcat(mips_cmdline, " ", COMMAND_LINE_SIZE);
 	}
 }
 
@@ -203,7 +203,7 @@ static void __init console_config(void)
 	char parity = '\0', bits = '\0', flow = '\0';
 	char *s, *p;
 
-	if (strstr(arcs_cmdline, "console="))
+	if (strstr(mips_cmdline, "console="))
 		return;
 
 	s = prom_getenv("modetty0");
@@ -237,7 +237,7 @@ static void __init console_config(void)
 	else
 		sprintf(console_string, " console=ttyS0,%d%c%c", baud, parity,
 			bits);
-	strlcat(arcs_cmdline, console_string, COMMAND_LINE_SIZE);
+	strlcat(mips_cmdline, console_string, COMMAND_LINE_SIZE);
 #endif
 }
 

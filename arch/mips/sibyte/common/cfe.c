@@ -287,7 +287,7 @@ void __init prom_init(void)
 	 * boot console
 	 */
 	cfe_cons_handle = cfe_getstdhandle(CFE_STDHANDLE_CONSOLE);
-	if (cfe_getenv("LINUX_CMDLINE", arcs_cmdline, COMMAND_LINE_SIZE) < 0) {
+	if (cfe_getenv("LINUX_CMDLINE", mips_cmdline, COMMAND_LINE_SIZE) < 0) {
 		if (argc >= 0) {
 			/* The loader should have set the command line */
 			/* too early for panic to do any good */
@@ -301,7 +301,7 @@ void __init prom_init(void)
 		char *ptr;
 		/* Need to find out early whether we've got an initrd.	So scan
 		   the list looking now */
-		for (ptr = arcs_cmdline; *ptr; ptr++) {
+		for (ptr = mips_cmdline; *ptr; ptr++) {
 			while (*ptr == ' ') {
 				ptr++;
 			}
@@ -318,7 +318,7 @@ void __init prom_init(void)
 #endif /* CONFIG_BLK_DEV_INITRD */
 
 	/* Not sure this is needed, but it's the safe way. */
-	arcs_cmdline[COMMAND_LINE_SIZE-1] = 0;
+	mips_cmdline[COMMAND_LINE_SIZE-1] = 0;
 
 	prom_meminit();
 

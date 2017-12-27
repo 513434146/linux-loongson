@@ -30,7 +30,7 @@ void __init prom_init_cmdline(void)
 {
 	int argc = fw_arg0;
 	char **argv = (char **)fw_arg1;
-	char *c = &(arcs_cmdline[0]);
+	char *c = &(mips_cmdline[0]);
 	int i;
 
 	for (i = 1; i < argc; i++) {

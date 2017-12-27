@@ -29,12 +29,12 @@ void __init prom_init_cmdline(s32 argc, s32 *argv, u32 magic)
 		start_arg = 2;
 	for (i = start_arg; i < argc; i++) {
 		arg = (void *)(long)(argv[i]);
-		strcat(arcs_cmdline, arg);
+		strcat(mips_cmdline, arg);
 		if (i < (argc - 1))
-			strcat(arcs_cmdline, " ");
+			strcat(mips_cmdline, " ");
 	}
 
 #ifdef PROM_DEBUG
-	printk("arcs_cmdline: %s\n", &(arcs_cmdline[0]));
+	printk("mips_cmdline: %s\n", &(mips_cmdline[0]));
 #endif
 }

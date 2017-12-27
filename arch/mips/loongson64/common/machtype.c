@@ -45,7 +45,7 @@ void __init prom_init_machtype(void)
 
 	mips_machtype = LOONGSON_MACHTYPE;
 
-	p = strstr(arcs_cmdline, "machtype=");
+	p = strstr(mips_cmdline, "machtype=");
 	if (!p) {
 		mach_prom_init_machtype();
 		return;

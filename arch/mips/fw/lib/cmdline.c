@@ -36,15 +36,15 @@ void __init fw_init_cmdline(void)
 		_fw_envp = (int *)fw_arg2;
 
 	for (i = 1; i < fw_argc; i++) {
-		strlcat(arcs_cmdline, fw_argv(i), COMMAND_LINE_SIZE);
+		strlcat(mips_cmdline, fw_argv(i), COMMAND_LINE_SIZE);
 		if (i < (fw_argc - 1))
-			strlcat(arcs_cmdline, " ", COMMAND_LINE_SIZE);
+			strlcat(mips_cmdline, " ", COMMAND_LINE_SIZE);
 	}
 }
 
 char * __init fw_getcmdline(void)
 {
-	return &(arcs_cmdline[0]);
+	return &(mips_cmdline[0]);
 }
 
 char *fw_getenv(char *envname)

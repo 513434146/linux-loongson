@@ -107,9 +107,9 @@ void __init prom_init(void)
 	argv = (char **)fw_arg1;
 
 	for (i = 1; i < argc; i++) {
-		strlcat(arcs_cmdline, argv[i], COMMAND_LINE_SIZE);
+		strlcat(mips_cmdline, argv[i], COMMAND_LINE_SIZE);
 		if (i < (argc - 1))
-			strlcat(arcs_cmdline, " ", COMMAND_LINE_SIZE);
+			strlcat(mips_cmdline, " ", COMMAND_LINE_SIZE);
 	}
 
 	add_memory_region(0x0, memsz, BOOT_MEM_RAM);

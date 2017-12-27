@@ -60,12 +60,12 @@ void __init plat_mem_setup(void)
 
 	pr_info("Found following command lines\n");
 	pr_info(" boot_command_line: %s\n", boot_command_line);
-	pr_info(" arcs_cmdline     : %s\n", arcs_cmdline);
+	pr_info(" mips_cmdline     : %s\n", mips_cmdline);
 #ifdef CONFIG_CMDLINE_BOOL
 	pr_info(" builtin_cmdline  : %s\n", CONFIG_CMDLINE);
 #endif
 	if (dtb != __dtb_start)
-		strlcpy(arcs_cmdline, boot_command_line, COMMAND_LINE_SIZE);
+		strlcpy(mips_cmdline, boot_command_line, COMMAND_LINE_SIZE);
 
 #ifdef CONFIG_EARLY_PRINTK
 	fw_init_early_console(-1);
@@ -77,7 +77,7 @@ static __init void pic32_init_cmdline(int argc, char *argv[])
 {
 	unsigned int count = COMMAND_LINE_SIZE - 1;
 	int i;
-	char *dst = &(arcs_cmdline[0]);
+	char *dst = &(mips_cmdline[0]);
 	char *src;
 
 	for (i = 1; i < argc && count; ++i) {

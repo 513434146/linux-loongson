@@ -145,8 +145,8 @@ void __init prom_init(void)
 
 	/* copy prom cmdline parameters to kernel cmdline */
 	for (i = 1; i < argc; i++) {
-		strcat(arcs_cmdline, (char *)CKSEG0ADDR(argv[i]));
+		strcat(mips_cmdline, (char *)CKSEG0ADDR(argv[i]));
 		if (i < (argc - 1))
-			strcat(arcs_cmdline, " ");
+			strcat(mips_cmdline, " ");
 	}
 }

@@ -26,7 +26,7 @@ static __init void jz4740_init_cmdline(int argc, char *argv[])
 {
 	unsigned int count = COMMAND_LINE_SIZE - 1;
 	int i;
-	char *dst = &(arcs_cmdline[0]);
+	char *dst = &(mips_cmdline[0]);
 	char *src;
 
 	for (i = 1; i < argc && count; ++i) {

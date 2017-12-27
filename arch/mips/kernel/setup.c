@@ -65,7 +65,7 @@ EXPORT_SYMBOL(mips_machtype);
 struct boot_mem_map boot_mem_map;
 
 static char __initdata command_line[COMMAND_LINE_SIZE];
-char __initdata arcs_cmdline[COMMAND_LINE_SIZE];
+char __initdata mips_cmdline[COMMAND_LINE_SIZE];
 
 #ifdef CONFIG_CMDLINE_BOOL
 static char __initdata builtin_cmdline[COMMAND_LINE_SIZE] = CONFIG_CMDLINE;
@@ -848,14 +848,14 @@ static void __init arch_mem_init(char **cmdline_p)
 #if defined(CONFIG_CMDLINE_BOOL) && defined(CONFIG_CMDLINE_OVERRIDE)
 	strlcpy(boot_command_line, builtin_cmdline, COMMAND_LINE_SIZE);
 #else
-	if ((USE_PROM_CMDLINE && arcs_cmdline[0]) ||
+	if ((USE_PROM_CMDLINE && mips_cmdline[0]) ||
 	    (USE_DTB_CMDLINE && !boot_command_line[0]))
-		strlcpy(boot_command_line, arcs_cmdline, COMMAND_LINE_SIZE);
+		strlcpy(boot_command_line, mips_cmdline, COMMAND_LINE_SIZE);
 
-	if (EXTEND_WITH_PROM && arcs_cmdline[0]) {
+	if (EXTEND_WITH_PROM && mips_cmdline[0]) {
 		if (boot_command_line[0])
 			strlcat(boot_command_line, " ", COMMAND_LINE_SIZE);
-		strlcat(boot_command_line, arcs_cmdline, COMMAND_LINE_SIZE);
+		strlcat(boot_command_line, mips_cmdline, COMMAND_LINE_SIZE);
 	}
 
 #if defined(CONFIG_CMDLINE_BOOL)
@@ -865,10 +865,10 @@ static void __init arch_mem_init(char **cmdline_p)
 		strlcat(boot_command_line, builtin_cmdline, COMMAND_LINE_SIZE);
 	}
 
-	if (BUILTIN_EXTEND_WITH_PROM && arcs_cmdline[0]) {
+	if (BUILTIN_EXTEND_WITH_PROM && mips_cmdline[0]) {
 		if (boot_command_line[0])
 			strlcat(boot_command_line, " ", COMMAND_LINE_SIZE);
-		strlcat(boot_command_line, arcs_cmdline, COMMAND_LINE_SIZE);
+		strlcat(boot_command_line, mips_cmdline, COMMAND_LINE_SIZE);
 	}
 #endif
 #endif

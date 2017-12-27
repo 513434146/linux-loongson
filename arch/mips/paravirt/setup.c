@@ -49,9 +49,9 @@ void __init prom_init(void)
 #endif
 
 	for (i = 0; i < argc; i++) {
-		strlcat(arcs_cmdline, argv[i], COMMAND_LINE_SIZE);
+		strlcat(mips_cmdline, argv[i], COMMAND_LINE_SIZE);
 		if (i < argc - 1)
-			strlcat(arcs_cmdline, " ", COMMAND_LINE_SIZE);
+			strlcat(mips_cmdline, " ", COMMAND_LINE_SIZE);
 	}
 	_machine_halt = pv_machine_halt;
 	register_smp_ops(&paravirt_smp_ops);

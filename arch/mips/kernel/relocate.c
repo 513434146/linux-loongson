@@ -241,8 +241,8 @@ static inline __init bool kaslr_disabled(void)
 	    (str > builtin_cmdline && *(str - 1) == ' '))
 		return true;
 #endif
-	str = strstr(arcs_cmdline, "nokaslr");
-	if (str == arcs_cmdline || (str > arcs_cmdline && *(str - 1) == ' '))
+	str = strstr(mips_cmdline, "nokaslr");
+	if (str == mips_cmdline || (str > mips_cmdline && *(str - 1) == ' '))
 		return true;
 
 	return false;
@@ -313,7 +313,7 @@ void *__init relocate_kernel(void)
 	early_init_dt_scan(fdt);
 	if (boot_command_line[0]) {
 		/* Boot command line was passed in device tree */
-		strlcpy(arcs_cmdline, boot_command_line, COMMAND_LINE_SIZE);
+		strlcpy(mips_cmdline, boot_command_line, COMMAND_LINE_SIZE);
 	}
 #endif /* CONFIG_USE_OF */
 
@@ -327,7 +327,7 @@ void *__init relocate_kernel(void)
 		offset = (unsigned long)loc_new - (unsigned long)(&_text);
 
 	/* Reset the command line now so we don't end up with a duplicate */
-	arcs_cmdline[0] = '\0';
+	mips_cmdline[0] = '\0';
 
 	if (offset) {
 		void (*fdt_relocated_)(void *) = NULL;

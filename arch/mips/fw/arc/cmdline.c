@@ -71,7 +71,7 @@ void __init prom_init_cmdline(void)
 
 	actr = 1; /* Always ignore argv[0] */
 
-	cp = arcs_cmdline;
+	cp = mips_cmdline;
 	/*
 	 * Move ARC variables to the beginning to make sure they can be
 	 * overridden by later arguments.
@@ -94,11 +94,11 @@ void __init prom_init_cmdline(void)
 		actr++;
 	}
 
-	if (cp != arcs_cmdline)		/* get rid of trailing space */
+	if (cp != mips_cmdline)		/* get rid of trailing space */
 		--cp;
 	*cp = '\0';
 
 #ifdef DEBUG_CMDLINE
-	printk(KERN_DEBUG "prom cmdline: %s\n", arcs_cmdline);
+	printk(KERN_DEBUG "prom cmdline: %s\n", mips_cmdline);
 #endif
 }

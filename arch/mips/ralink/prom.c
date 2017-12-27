@@ -54,8 +54,8 @@ static __init void prom_init_cmdline(void)
 
 		if (CPHYSADDR(p) && *p) {
 			pr_debug("argv[%d]: %s\n", i, p);
-			strlcat(arcs_cmdline, " ", sizeof(arcs_cmdline));
-			strlcat(arcs_cmdline, p, sizeof(arcs_cmdline));
+			strlcat(mips_cmdline, " ", sizeof(mips_cmdline));
+			strlcat(mips_cmdline, p, sizeof(mips_cmdline));
 		}
 	}
 }

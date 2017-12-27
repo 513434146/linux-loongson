@@ -853,7 +853,7 @@ void __init prom_init(void)
 	if (octeon_is_simulation())
 		max_memory = 64ull << 20;
 
-	arg = strstr(arcs_cmdline, "mem=");
+	arg = strstr(mips_cmdline, "mem=");
 	if (arg) {
 		max_memory = memparse(arg + 4, &p);
 		if (max_memory == 0)
@@ -862,7 +862,7 @@ void __init prom_init(void)
 			reserve_low_mem = memparse(p + 1, &p);
 	}
 
-	arcs_cmdline[0] = 0;
+	mips_cmdline[0] = 0;
 	argc = octeon_boot_desc_ptr->argc;
 	for (i = 0; i < argc; i++) {
 		const char *arg =
@@ -879,26 +879,26 @@ void __init prom_init(void)
 			crashk_size = memparse(arg+12, &p);
 			if (*p == '@')
 				crashk_base = memparse(p+1, &p);
-			strcat(arcs_cmdline, " ");
-			strcat(arcs_cmdline, arg);
+			strcat(mips_cmdline, " ");
+			strcat(mips_cmdline, arg);
 			/*
 			 * To do: switch parsing to new style, something like:
 			 * parse_crashkernel(arg, sysinfo->system_dram_size,
 			 *		  &crashk_size, &crashk_base);
 			 */
 #endif
-		} else if (strlen(arcs_cmdline) + strlen(arg) + 1 <
-			   sizeof(arcs_cmdline) - 1) {
-			strcat(arcs_cmdline, " ");
-			strcat(arcs_cmdline, arg);
+		} else if (strlen(mips_cmdline) + strlen(arg) + 1 <
+			   sizeof(mips_cmdline) - 1) {
+			strcat(mips_cmdline, " ");
+			strcat(mips_cmdline, arg);
 		}
 	}
 
-	if (strstr(arcs_cmdline, "console=") == NULL) {
+	if (strstr(mips_cmdline, "console=") == NULL) {
 		if (octeon_uart == 1)
-			strcat(arcs_cmdline, " console=ttyS1,115200");
+			strcat(mips_cmdline, " console=ttyS1,115200");
 		else
-			strcat(arcs_cmdline, " console=ttyS0,115200");
+			strcat(mips_cmdline, " console=ttyS0,115200");
 	}
 
 	mips_hpt_frequency = octeon_get_clock_rate();
@@ -947,10 +947,10 @@ void __init fw_init_cmdline(void)
 	for (i = 0; i < octeon_boot_desc_ptr->argc; i++) {
 		const char *arg =
 			cvmx_phys_to_ptr(octeon_boot_desc_ptr->argv[i]);
-		if (strlen(arcs_cmdline) + strlen(arg) + 1 <
-			   sizeof(arcs_cmdline) - 1) {
-			strcat(arcs_cmdline, " ");
-			strcat(arcs_cmdline, arg);
+		if (strlen(mips_cmdline) + strlen(arg) + 1 <
+			   sizeof(mips_cmdline) - 1) {
+			strcat(mips_cmdline, " ");
+			strcat(mips_cmdline, arg);
 		}
 	}
 }

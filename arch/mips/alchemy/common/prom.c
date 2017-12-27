@@ -47,9 +47,9 @@ void __init prom_init_cmdline(void)
 	int i;
 
 	for (i = 1; i < prom_argc; i++) {
-		strlcat(arcs_cmdline, prom_argv[i], COMMAND_LINE_SIZE);
+		strlcat(mips_cmdline, prom_argv[i], COMMAND_LINE_SIZE);
 		if (i < (prom_argc - 1))
-			strlcat(arcs_cmdline, " ", COMMAND_LINE_SIZE);
+			strlcat(mips_cmdline, " ", COMMAND_LINE_SIZE);
 	}
 }
 
@@ -111,7 +111,7 @@ int __init prom_get_ethernet_addr(char *ethernet_addr)
 	ethaddr_str = prom_getenv("ethaddr");
 	if (!ethaddr_str) {
 		/* Check command line */
-		ethaddr_str = strstr(arcs_cmdline, "ethaddr=");
+		ethaddr_str = strstr(mips_cmdline, "ethaddr=");
 		if (!ethaddr_str)
 			return -1;
 

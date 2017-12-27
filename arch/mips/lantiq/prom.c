@@ -57,14 +57,14 @@ static void __init prom_init_cmdline(void)
 	char **argv = (char **) KSEG1ADDR(fw_arg1);
 	int i;
 
-	arcs_cmdline[0] = '\0';
+	mips_cmdline[0] = '\0';
 
 	for (i = 0; i < argc; i++) {
 		char *p = (char *) KSEG1ADDR(argv[i]);
 
 		if (CPHYSADDR(p) && *p) {
-			strlcat(arcs_cmdline, p, sizeof(arcs_cmdline));
-			strlcat(arcs_cmdline, " ", sizeof(arcs_cmdline));
+			strlcat(mips_cmdline, p, sizeof(mips_cmdline));
+			strlcat(mips_cmdline, " ", sizeof(mips_cmdline));
 		}
 	}
 }

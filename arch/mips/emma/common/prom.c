@@ -46,15 +46,15 @@ void __init prom_init(void)
 
 	/* if user passes kernel args, ignore the default one */
 	if (argc > 1)
-		arcs_cmdline[0] = '\0';
+		mips_cmdline[0] = '\0';
 
 	/* arg[0] is "g", the rest is boot parameters */
 	for (i = 1; i < argc; i++) {
-		if (strlen(arcs_cmdline) + strlen(arg[i]) + 1
-		    >= sizeof(arcs_cmdline))
+		if (strlen(mips_cmdline) + strlen(arg[i]) + 1
+		    >= sizeof(mips_cmdline))
 			break;
-		strcat(arcs_cmdline, arg[i]);
-		strcat(arcs_cmdline, " ");
+		strcat(mips_cmdline, arg[i]);
+		strcat(mips_cmdline, " ");
 	}
 
 #ifdef CONFIG_NEC_MARKEINS

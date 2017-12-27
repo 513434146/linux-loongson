@@ -43,7 +43,7 @@ static inline unsigned long env_or_default(char *env, unsigned long dfl)
 
 void __init prom_init_cmdline(void)
 {
-	char *c = &(arcs_cmdline[0]);
+	char *c = &(mips_cmdline[0]);
 	int i;
 
 	for (i = 1; i < prom_argc; i++) {
@@ -67,11 +67,11 @@ void __init prom_init(void)
 	memsize = env_or_default("memsize", DEFAULT_MEMSIZE);
 	highmemsize = env_or_default("highmemsize", 0x0);
 
-	if (strstr(arcs_cmdline, "console=ttyS3"))
+	if (strstr(mips_cmdline, "console=ttyS3"))
 		uart_base = ioremap_nocache(LS1X_UART3_BASE, 0x0f);
-	else if (strstr(arcs_cmdline, "console=ttyS2"))
+	else if (strstr(mips_cmdline, "console=ttyS2"))
 		uart_base = ioremap_nocache(LS1X_UART2_BASE, 0x0f);
-	else if (strstr(arcs_cmdline, "console=ttyS1"))
+	else if (strstr(mips_cmdline, "console=ttyS1"))
 		uart_base = ioremap_nocache(LS1X_UART1_BASE, 0x0f);
 	else
 		uart_base = ioremap_nocache(LS1X_UART0_BASE, 0x0f);

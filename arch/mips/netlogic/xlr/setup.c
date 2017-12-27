@@ -99,39 +99,39 @@ void nlm_percpu_init(int hwcpuid)
 		xlr_percpu_fmn_init();
 }
 
-static void __init build_arcs_cmdline(int *argv)
+static void __init build_mips_cmdline(int *argv)
 {
 	int i, remain, len;
 	char *arg;
 
-	remain = sizeof(arcs_cmdline) - 1;
-	arcs_cmdline[0] = '\0';
+	remain = sizeof(mips_cmdline) - 1;
+	mips_cmdline[0] = '\0';
 	for (i = 0; argv[i] != 0; i++) {
 		arg = (char *)(long)argv[i];
 		len = strlen(arg);
 		if (len + 1 > remain)
 			break;
-		strcat(arcs_cmdline, arg);
-		strcat(arcs_cmdline, " ");
+		strcat(mips_cmdline, arg);
+		strcat(mips_cmdline, " ");
 		remain -=  len + 1;
 	}
 
 	/* Add the default options here */
-	if ((strstr(arcs_cmdline, "console=")) == NULL) {
+	if ((strstr(mips_cmdline, "console=")) == NULL) {
 		arg = "console=ttyS0,38400 ";
 		len = strlen(arg);
 		if (len > remain)
 			goto fail;
-		strcat(arcs_cmdline, arg);
+		strcat(mips_cmdline, arg);
 		remain -= len;
 	}
 #ifdef CONFIG_BLK_DEV_INITRD
-	if ((strstr(arcs_cmdline, "rdinit=")) == NULL) {
+	if ((strstr(mips_cmdline, "rdinit=")) == NULL) {
 		arg = "rdinit=/sbin/init ";
 		len = strlen(arg);
 		if (len > remain)
 			goto fail;
-		strcat(arcs_cmdline, arg);
+		strcat(mips_cmdline, arg);
 		remain -= len;
 	}
 #endif
@@ -195,7 +195,7 @@ void __init prom_init(void)
 	memcpy(reset_vec, (void *)nlm_reset_entry,
 			(nlm_reset_entry_end - nlm_reset_entry));
 
-	build_arcs_cmdline(argv);
+	build_mips_cmdline(argv);
 	prom_add_memory();
 
 #ifdef CONFIG_SMP

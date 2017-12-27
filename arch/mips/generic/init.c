@@ -111,7 +111,7 @@ void __init plat_mem_setup(void)
 	if (mach && mach->fixup_fdt)
 		fdt = mach->fixup_fdt(fdt, mach_match_data);
 
-	strlcpy(arcs_cmdline, boot_command_line, COMMAND_LINE_SIZE);
+	strlcpy(mips_cmdline, boot_command_line, COMMAND_LINE_SIZE);
 	__dt_setup_arch((void *)fdt);
 }
 

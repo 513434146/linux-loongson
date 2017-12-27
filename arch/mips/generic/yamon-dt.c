@@ -114,7 +114,7 @@ __init int yamon_dt_append_memory(void *fdt,
 	/* allow the user to override the usable memory */
 	for (i = 0; i < ARRAY_SIZE(var_names); i++) {
 		snprintf(param_name, sizeof(param_name), "%s=", var_names[i]);
-		var = strstr(arcs_cmdline, param_name);
+		var = strstr(mips_cmdline, param_name);
 		if (!var)
 			continue;
 

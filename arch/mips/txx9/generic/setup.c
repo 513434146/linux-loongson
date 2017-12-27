@@ -127,18 +127,18 @@ static void __init prom_init_cmdline(void)
 		argv32 = (int *)fw_arg1;
 	}
 
-	arcs_cmdline[0] = '\0';
+	mips_cmdline[0] = '\0';
 
 	for (i = 1; i < argc; i++) {
 		char *str = (char *)(long)argv32[i];
 		if (i != 1)
-			strcat(arcs_cmdline, " ");
+			strcat(mips_cmdline, " ");
 		if (strchr(str, ' ')) {
-			strcat(arcs_cmdline, "\"");
-			strcat(arcs_cmdline, str);
-			strcat(arcs_cmdline, "\"");
+			strcat(mips_cmdline, "\"");
+			strcat(mips_cmdline, str);
+			strcat(mips_cmdline, "\"");
 		} else
-			strcat(arcs_cmdline, str);
+			strcat(mips_cmdline, str);
 	}
 }
 
@@ -251,9 +251,9 @@ static void __init preprocess_cmdline(void)
 	static char cmdline[COMMAND_LINE_SIZE] __initdata;
 	char *s;
 
-	strcpy(cmdline, arcs_cmdline);
+	strcpy(cmdline, mips_cmdline);
 	s = cmdline;
-	arcs_cmdline[0] = '\0';
+	mips_cmdline[0] = '\0';
 	while (s && *s) {
 		char *str = strsep(&s, " ");
 		if (strncmp(str, "board=", 6) == 0) {
@@ -277,9 +277,9 @@ static void __init preprocess_cmdline(void)
 			txx9_ccfg_toeon = 1;
 			continue;
 		}
-		if (arcs_cmdline[0])
-			strcat(arcs_cmdline, " ");
-		strcat(arcs_cmdline, str);
+		if (mips_cmdline[0])
+			strcat(mips_cmdline, " ");
+		strcat(mips_cmdline, str);
 	}
 
 	txx9_cache_fixup();
